@@ -8,10 +8,27 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        base: {
+          white: "rgb(var(--color-base-white) / <alpha-value>)",
+          black: "rgb(var(--color-base-black) / <alpha-value>)",
+          "white-off": "rgb(var(--color-base-white-off) / <alpha-value>)",
+          stone20: "rgb(var(--color-base-stone-20) / <alpha-value>)",
+          stone50: "rgb(var(--color-base-stone-50) / <alpha-value>)",
+          stone100: "rgb(var(--color-base-stone-100) / <alpha-value>)",
+          brown: "rgb(var(--color-base-brown) / <alpha-value>)",
+        },
+        accent: {
+          metal: "rgb(var(--color-accent-metal) / <alpha-value>)",
+          earth: "rgb(var(--color-accent-earth) / <alpha-value>)",
+          water: "rgb(var(--color-accent-water) / <alpha-value>)",
+          fire: "rgb(var(--color-accent-fire) / <alpha-value>)",
+          wood: "rgb(var(--color-accent-wood) / <alpha-value>)",
+        },
+        error: "rgb(var(--color-error) / <alpha-value>)",
+      },
+      spacing: {
+        header: "var(--header-height)",
       },
     },
   },
