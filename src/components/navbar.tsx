@@ -2,7 +2,7 @@ export default function Navbar() {
   const items = ["OAU", "Initiatives", "Work", "Contact"];
 
   return (
-    <nav className="w-full sticky top-0 border-b px-2 hidden lg:flex border-accent-metal/20">
+    <nav className="w-full px-2 hidden lg:flex">
       {items.map((item) => (
         <div
           key={item}

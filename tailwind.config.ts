@@ -7,6 +7,12 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      "instrument-serif": "var(--font-instrument-serif)",
+      "big-jhon": "var(--font-big-jhon)",
+      "inter": "var(--inter)",
+      "roboto": "var(--roboto)"
+    },
     extend: {
       colors: {
         base: {
