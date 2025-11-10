@@ -4,7 +4,11 @@ import { GeistSans } from "geist/font/sans";
 import localfont from "next/font/local";
 import "./globals.css";
 
-const instrumentSerif = Instrument_Serif({ weight: "400", subsets: ["latin"] });
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-instrument",
+});
 
 const bigJohn = localfont({
   src: "../../public/font.otf",
@@ -23,7 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${instrumentSerif.className} ${GeistSans.variable} ${bigJohn.variable}`}>
+      <body
+        className={`${instrumentSerif.variable} ${GeistSans.variable} ${bigJohn.variable}`}
+      >
         {children}
       </body>
     </html>

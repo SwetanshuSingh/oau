@@ -11,6 +11,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-geist-sans)"],
         "big-jhon": "var(--font-big-jhon)",
+        "instrument": "var(--font-instrument)"
       },
       colors: {
         base: {
