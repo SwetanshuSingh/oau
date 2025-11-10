@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-geist-sans)"],
+        "big-jhon": "var(--font-big-jhon)",
+      },
       colors: {
         base: {
           white: "rgb(var(--color-base-white) / <alpha-value>)",

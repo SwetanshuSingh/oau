@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import { Instrument_Serif, Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import localfont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
 const instrumentSerif = Instrument_Serif({ weight: "400", subsets: ["latin"] });
+
+const bigJohn = localfont({
+  src: "../../public/font.otf",
+  variable: "--font-big-jhon",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${instrumentSerif.className}`}>
+      <body className={`${instrumentSerif.className} ${GeistSans.variable} ${bigJohn.variable}`}>
         {children}
       </body>
     </html>
