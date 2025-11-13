@@ -18,3 +18,9 @@
   --color-accent-wood: 112 116 85;
   --color-error: 230 44 23;
 }
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
