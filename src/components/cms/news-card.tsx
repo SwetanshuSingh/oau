@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import AddIcon from "@/components/icons/add-icon";
 
-export default function ProjectCard() {
+export default function NewsCard() {
   return (
     <div className="flex flex-col gap-1">
       <p className="text-lg tracking-tight">Project Name</p>
@@ -27,7 +27,7 @@ export default function ProjectCard() {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
+        {/* <div className="flex flex-col gap-2">
           <p className="text-xl font-medium">Gallery</p>
           <div className="w-full flex justify-start items-center gap-2">
             <img
@@ -39,7 +39,7 @@ export default function ProjectCard() {
               <AddIcon />
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
     </div>
   );

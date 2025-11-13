@@ -1,7 +1,9 @@
 import Sidebar from "@/components/cms/sidebar";
 import Navbar from "@/components/cms/navbar";
 
-export default async function DashboardLayout({
+export const dynamic = "force-dynamic";
+
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;

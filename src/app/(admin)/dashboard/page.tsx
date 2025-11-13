@@ -1,15 +1,30 @@
-import Navbar from "@/components/cms/navbar";
+import NewsCard from "@/components/cms/news-card";
 import ProjectCard from "@/components/cms/project-card";
-import Sidebar from "@/components/cms/sidebar";
 
 export default async function Dashboard({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const data = await searchParams;
-    console.log("Search Params", data)
+  const params = searchParams;
+  const view = params.view;
 
+  return (
+    <main className="w-full flex flex-col gap-10 p-4">
+      {view && view == "work" && (
+        <section className="w-full flex flex-col gap-6">
+          <h3 className="text-2xl font-medium">Current Projects</h3>
+          <ProjectCard />
+          <ProjectCard />
+        </section>
+      )}
 
-  return <main className="w-full flex flex-col gap-10 p-4"></main>;
+      {view && view == "news" && (
+        <section className="w-full flex flex-col gap-6">
+          <h3 className="text-2xl font-medium">Current News</h3>
+          <NewsCard />
+        </section>
+      )}
+    </main>
+  );
 }
