@@ -2,10 +2,19 @@
 
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+import { findUserByEmail } from "./user";
+import bcrypt from "bcryptjs";
 
 type JwtPayload = {
   sub: string; // user id
   email: string;
+};
+
+type User = {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
 };
 
 const COOKIE_NAME = "auth_token";
@@ -66,4 +75,35 @@ function getAuthTokenFromCookie(): string | null {
   const cookieStore = cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value ?? null;
   return token;
+}
+
+async function verifyPassword(user: User, password: string): Promise<boolean> {
+  return await bcrypt.compare(password, user.password);
+}
+
+export async function login(
+  email: string,
+  password: string
+): Promise<{ status: "success" | "error"; message: string }> {
+  try {
+    const user = await findUserByEmail(email);
+
+    if (!user) {
+      return { status: "error", message: "User does not exists" };
+    }
+
+    const validPassword = await verifyPassword(user, password);
+
+    if (!validPassword) {
+      return { status: "error", message: "Invalid Credentials" };
+    }
+
+    const token = signJwt({ sub: user.name, email: user.email });
+    setAuthCookie(token);
+
+    return { status: "success", message: "Login Successfull" };
+  } catch (error) {
+    console.log("Error while loggin in", error);
+    return { status: "error", message: "An error occured while logging in" };
+  }
 }

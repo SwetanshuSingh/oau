@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,18 +9,67 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { login } from "@/actions/login";
+import { useFormStatus } from "react-dom";
+import Loader from "./icons/loader-icon";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function userLogin(formData: FormData) {
+    setIsLoading(true);
+
+    const rawFormData = {
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+
+    const { email, password } = rawFormData;
+
+    if (!email || !password) {
+      toast({
+        title: "Invalid Credentials",
+        description: "Email and Password cannot be empty!",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    if (typeof email !== "string" || typeof password !== "string") {
+      console.log("Error here");
+      toast({
+        title: "Invalid Credentials",
+        description: "Email and Password should be valid!",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    const response = await login(email, password);
+
+    if (response.status !== "success") {
+      toast({
+        title: "An error occurred!",
+        description: response.message,
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(false);
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="bg-[#191B1D] text-white/80 border border-[#313234]">
@@ -29,12 +80,13 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form action={userLogin}>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
                   className="bg-[#252728] outline-none border border-[#313234]"
+                  name="email"
                   id="email"
                   type="email"
                   placeholder="m@example.com"
@@ -47,6 +99,7 @@ export function LoginForm({
                 </div>
                 <Input
                   className="bg-[#252728] outline-none border border-[#313234]"
+                  name="password"
                   id="password"
                   type="password"
                   required
@@ -54,10 +107,11 @@ export function LoginForm({
               </Field>
               <Field>
                 <Button
+                  disabled={isLoading}
                   className="bg-[#3D3C3F] border border-[#313234] flex justify-center items-center"
                   type="submit"
                 >
-                  Sign In
+                  {isLoading ? <Loader /> : "Sign In"}
                 </Button>
               </Field>
             </FieldGroup>

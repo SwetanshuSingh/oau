@@ -3,6 +3,7 @@ import { Instrument_Serif, Inter } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import localfont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const instrumentSerif = Instrument_Serif({
   weight: "400",
@@ -31,6 +32,7 @@ export default function RootLayout({
         className={`${instrumentSerif.variable} ${GeistSans.variable} ${bigJohn.variable}`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );
