@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { db } from "@/db";
 import { users } from "@/db/schema";
@@ -28,8 +28,8 @@ export async function findUserByEmail(email: string): Promise<User | null> {
   }
 }
 
-export async function createUser(user: User): Promise<User | null> {
-  const { id, name, email, password } = user;
+export async function createUser(user: Omit<User, "id">): Promise<User | null> {
+  const { name, email, password } = user;
 
   const normalizedEmail = email.trim().toLowerCase();
 
@@ -44,7 +44,6 @@ export async function createUser(user: User): Promise<User | null> {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = {
-      id: 1,
       name,
       email: normalizedEmail,
       password: hashedPassword,
