@@ -13,7 +13,7 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { login } from "@/actions/login";
 import Loader from "./icons/loader-icon";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 
@@ -25,8 +25,11 @@ export function LoginForm({
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
-  async function userLogin(formData: FormData) {
+  async function userLogin(evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
     setIsLoading(true);
+
+    const formData = new FormData(evt.currentTarget);
 
     const rawFormData = {
       email: formData.get("email"),
@@ -34,7 +37,6 @@ export function LoginForm({
     };
 
     const { email, password } = rawFormData;
-
     if (!email || !password) {
       toast({
         title: "Invalid Credentials",
@@ -44,7 +46,6 @@ export function LoginForm({
       setIsLoading(false);
       return;
     }
-
     if (typeof email !== "string" || typeof password !== "string") {
       console.log("Error here");
       toast({
@@ -55,9 +56,7 @@ export function LoginForm({
       setIsLoading(false);
       return;
     }
-
     const response = await login(email, password);
-
     if (response.status !== "success") {
       toast({
         title: "An error occurred!",
@@ -67,9 +66,7 @@ export function LoginForm({
       setIsLoading(false);
       return;
     }
-
     router.push("/dashboard");
-    // router.refresh();
     setIsLoading(false);
   }
 
@@ -83,7 +80,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form action={userLogin}>
+          <form onSubmit={(evt) => userLogin(evt)}>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
