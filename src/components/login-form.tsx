@@ -12,15 +12,16 @@ import {
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { login } from "@/actions/login";
-import { useFormStatus } from "react-dom";
 import Loader from "./icons/loader-icon";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -67,6 +68,8 @@ export function LoginForm({
       return;
     }
 
+    router.push("/dashboard");
+    // router.refresh();
     setIsLoading(false);
   }
 

@@ -1,21 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+import * as jose from "jose";
 
 const COOKIE_NAME = "auth_token";
-const JWT_SECRET = process.env.JWT_SECRET as string;
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 
 export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
 
   const protectedRoutes = ["/dashboard"];
+  const authRoutes = ["/login"];
 
   const isProtected = protectedRoutes.some((p) => url.pathname.startsWith(p));
+  const isAuthRoute = authRoutes.some((p) => url.pathname.startsWith(p));
+  const token = req.cookies.get(COOKIE_NAME)?.value;
+
+  if (isAuthRoute && token) {
+    url.pathname = "/dashboard";
+    return NextResponse.redirect(url);
+  }
 
   if (!isProtected) {
     return NextResponse.next();
   }
-
-  const token = req.cookies.get(COOKIE_NAME)?.value;
 
   if (!token) {
     url.pathname = "/login";
@@ -23,7 +29,8 @@ export function middleware(req: NextRequest) {
   }
 
   try {
-    jwt.verify(token, JWT_SECRET);
+    jose.jwtVerify(token, JWT_SECRET);
+
     return NextResponse.next();
   } catch (error) {
     url.pathname = "/login";
@@ -32,5 +39,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ["/dashboard/:path*", "/login"],
 };
