@@ -9,7 +9,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="w-full min-h-screen flex flex-col bg-[#17191A] text-white/80 font-sans">
+    <main className="w-full min-h-screen flex flex-col bg-black text-white font-sans">
       <Navbar />
       <section className="w-full flex flex-grow">
         <Sidebar />

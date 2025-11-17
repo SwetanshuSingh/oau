@@ -24,17 +24,15 @@ export default function Sidebar() {
   );
 
   return (
-    <aside className="w-1/6 border-r border-[#333435] flex flex-col gap-3 p-4">
+    <aside className="w-1/6 border-r border-neutral-800 flex flex-col gap-3 p-4">
       {navItems.map((item) => (
         <div
           key={item.name}
           onClick={() => {
             router.push(pathname + "?" + createQueryString("view", item.name));
           }}
-          className={`w-full py-0.5 px-3 flex justify-start items-center rounded cursor-pointer border ${
-            view === item.name
-              ? "border-[#333435] bg-[#252728]"
-              : "border-transparent"
+          className={`w-full py-1 px-3 flex justify-start items-center rounded cursor-pointer ${
+            view === item.name ? "bg-white/10 text-neutral-100" : "border-transparent text-neutral-400"
           }`}
         >
           <p className="capitalize">{item.name}</p>

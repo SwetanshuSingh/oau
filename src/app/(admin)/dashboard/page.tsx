@@ -13,7 +13,9 @@ export default async function Dashboard({
     <main className="w-full flex flex-col gap-10 p-4">
       {view && view == "work" && (
         <section className="w-full flex flex-col gap-6">
-          <h3 className="text-2xl font-medium">Current Projects <span className="text-base">(6)</span></h3>
+          <h3 className="text-2xl font-medium text-neutral-200">
+            Current Projects <span className="text-base text-neutral-400">(6)</span>
+          </h3>
           <ProjectCard />
           <ProjectCard />
         </section>
@@ -21,7 +23,9 @@ export default async function Dashboard({
 
       {view && view == "news" && (
         <section className="w-full flex flex-col gap-6">
-          <h3 className="text-2xl font-medium">Current News <span className="text-base">(8)</span></h3>
+          <h3 className="text-2xl font-medium">
+            Current News <span className="text-base">(8)</span>
+          </h3>
           <NewsCard />
         </section>
       )}
