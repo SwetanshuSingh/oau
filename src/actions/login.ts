@@ -31,19 +31,6 @@ function signJwt(
   );
 }
 
-function verifyJwt(token: string): JwtPayload | null {
-  try {
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string
-    ) as JwtPayload;
-    return decoded;
-  } catch (error) {
-    console.log("An error occured while verifying the token", error);
-    return null;
-  }
-}
-
 function setAuthCookie(token: string) {
   const cookieStore = cookies();
 
@@ -58,7 +45,11 @@ function setAuthCookie(token: string) {
   });
 }
 
-function clearAuthCookie() {
+async function verifyPassword(user: User, password: string): Promise<boolean> {
+  return await bcrypt.compare(password, user.password);
+}
+
+export async function clearAuthCookie() {
   const cookieStore = cookies();
   cookieStore.set({
     name: COOKIE_NAME,
@@ -71,14 +62,23 @@ function clearAuthCookie() {
   });
 }
 
-function getAuthTokenFromCookie(): string | null {
+export async function getAuthTokenFromCookie(): Promise<string | null> {
   const cookieStore = cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value ?? null;
   return token;
 }
 
-async function verifyPassword(user: User, password: string): Promise<boolean> {
-  return await bcrypt.compare(password, user.password);
+export async function verifyJwt(token: string): Promise<JwtPayload | null> {
+  try {
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET as string
+    ) as JwtPayload;
+    return decoded;
+  } catch (error) {
+    console.log("An error occured while verifying the token", error);
+    return null;
+  }
 }
 
 export async function login(

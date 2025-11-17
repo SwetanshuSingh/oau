@@ -4,6 +4,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
+import { getAuthTokenFromCookie, verifyJwt } from "./login";
 
 type User = {
   id: number;
@@ -56,4 +57,19 @@ export async function createUser(user: Omit<User, "id">): Promise<User | null> {
     console.log("An error occured while creating the error", error);
     return null;
   }
+}
+
+export async function createProject() {
+  const token = await getAuthTokenFromCookie();
+
+  if (!token) {
+    console.log("No token found");
+    return { status: "error", message: "Authentication Error" };
+  }
+
+  console.log("Token Found", token);
+
+  const isVerfiedUser = await verifyJwt(token);
+
+  console.log("Verifed User", isVerfiedUser);
 }
