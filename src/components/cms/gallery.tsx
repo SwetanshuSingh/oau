@@ -1,3 +1,5 @@
+"use client";
+
 import { Plus } from "lucide-react";
 
 export default function ImageGallery() {
