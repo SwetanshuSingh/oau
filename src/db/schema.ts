@@ -16,13 +16,13 @@ export const users = pgTable("users", {
 });
 
 export const projects = pgTable("projects", {
-  id: uuid("id").defaultRandom(),
+  id: uuid("id").defaultRandom().unique().primaryKey(),
   title: text().notNull(),
   description: text().notNull(),
 });
 
 export const images = pgTable("images", {
-  id: uuid("id").defaultRandom(),
+  id: uuid("id").defaultRandom().unique().primaryKey(),
   projectId: uuid("project_id")
     .notNull()
     .references(() => projects.id, { onDelete: "cascade" }),
