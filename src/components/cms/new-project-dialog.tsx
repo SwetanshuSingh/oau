@@ -4,7 +4,6 @@ import { createProject } from "@/actions/user";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -13,14 +12,35 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { ChangeEvent, FormEvent, useState } from "react";
-import ImageUploadButton from "./image-upload-button";
 import { Project } from "@/types";
+import { useToast } from "@/hooks/use-toast";
+import ImageUploader from "./image-uploader";
+import { useUploadThing } from "@/lib/uploadthing";
 
 export default function NewProjectDialog() {
+  const { toast } = useToast();
   const [project, setProject] = useState<Project>({
     title: "",
     description: "",
     images: [],
+  });
+  const { startUpload } = useUploadThing("imageUploader", {
+    onUploadError: (err) => {
+      // handle error state here.
+      // revoke all the image urls and clear state
+    },
+
+    onClientUploadComplete: async (uploadedImages) => {
+      // will get an array of uploaded images
+
+      const projectData = {
+        title: project.title,
+        description: project.description,
+        images: uploadedImages,
+      };
+
+      await createProject(projectData);
+    },
   });
 
   const handleTitleChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -35,29 +55,29 @@ export default function NewProjectDialog() {
     });
   };
 
-  const createNewProject = async (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
+  const createNewProject = async () => {
+    if (project.title.trim() === "" || project.title.trim() === "") {
+      toast({
+        title: "An error occurred",
+        description: "Title and Description cannot be empty",
+        variant: "destructive",
+      });
 
-    console.log("Project Data", project);
+      return;
+    }
 
-    // const formData = new FormData(evt.currentTarget);
-    // const rawFormData = {
-    //   title: formData.get("title"),
-    //   description: formData.get("description"),
-    // };
+    if (project.images.length < 1) {
+      toast({
+        title: "An error occurred",
+        description: "Upload atleast one image to continue",
+        variant: "destructive",
+      });
 
-    // const { title, description } = rawFormData;
+      return;
+    }
 
-    // if (typeof title !== "string" || typeof description !== "string") {
-    //   console.log("Fields can only be text");
-    //   return;
-    // }
-
-    // if (title.trim() == "" || description.trim() == "") {
-    //   console.log("Form Fields cannot be empty");
-    // }
-
-    // const response = await createProject();
+    const files = project.images.map((image) => image.file);
+    startUpload(files);
   };
 
   return (
@@ -71,10 +91,7 @@ export default function NewProjectDialog() {
             Create New Project
           </DialogTitle>
 
-          <form
-            onSubmit={(evt) => createNewProject(evt)}
-            className="flex flex-col gap-6"
-          >
+          <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-2.5">
               <span className="w-full flex items-baseline justify-between">
                 <p className="text-xl text-neutral-300">Title</p>
@@ -110,15 +127,11 @@ export default function NewProjectDialog() {
               <span className="w-full flex items-baseline justify-between">
                 <p className="text-xl text-neutral-300">Images</p>
               </span>
-              <div className="w-full flex gap-2">
-                <ImageUploadButton setProject={setProject} />
-                {/* <div className="w-24 h-24 flex justify-center items-center border border-neutral-800 text-neutral-600 hover:bg-white/10 hover:text-neutral-300 rounded-md cursor-pointer transition-colors duration-150">
-                  <Plus />
-                </div> */}
-              </div>
+              <ImageUploader images={project.images} setProject={setProject} />
             </div>
 
             <Button
+              onClick={createNewProject}
               disabled={
                 project.title == "" ||
                 project.description == "" ||
@@ -128,7 +141,7 @@ export default function NewProjectDialog() {
             >
               <p>Create Project</p>
             </Button>
-          </form>
+          </div>
         </DialogHeader>
       </DialogContent>
     </Dialog>

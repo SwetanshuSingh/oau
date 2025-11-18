@@ -1,16 +1,23 @@
 "use server";
 
 import { db } from "@/db";
-import { users } from "@/db/schema";
+import { images, projects, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { getAuthTokenFromCookie, verifyJwt } from "./login";
+import { ClientUploadedFileData } from "uploadthing/types";
 
 type User = {
   id: number;
   name: string;
   email: string;
   password: string;
+};
+
+type Project = {
+  title: string;
+  description: string;
+  images: ClientUploadedFileData<{ uploadedBy: string }>[];
 };
 
 export async function findUserByEmail(email: string): Promise<User | null> {
@@ -59,7 +66,9 @@ export async function createUser(user: Omit<User, "id">): Promise<User | null> {
   }
 }
 
-export async function createProject() {
+export async function createProject(
+  project: Project
+): Promise<{ status: "error" | "success"; message: string }> {
   const token = await getAuthTokenFromCookie();
 
   if (!token) {
@@ -67,9 +76,35 @@ export async function createProject() {
     return { status: "error", message: "Authentication Error" };
   }
 
-  console.log("Token Found", token);
+  const user = await verifyJwt(token);
 
-  const isVerfiedUser = await verifyJwt(token);
+  if (!user) {
+    return { status: "error", message: "Authentication Error" };
+  }
 
-  console.log("Verifed User", isVerfiedUser);
+  try {
+    await db.transaction(async (tx) => {
+      const newProject = await tx
+        .insert(projects)
+        .values({
+          title: project.title,
+          description: project.description,
+        })
+        .returning();
+
+      const imagesWithProjectId = project.images.map((item) => {
+        return { ...item, projectId: newProject[0].id };
+      });
+
+      await tx.insert(images).values(imagesWithProjectId);
+    });
+
+    return { status: "success", message: "Project Created Successfully!" };
+  } catch (error) {
+    console.log("Error while creating a new project", error);
+    return {
+      status: "error",
+      message: "An error occurred while creating a project",
+    };
+  }
 }

@@ -6,6 +6,7 @@ import {
   uuid,
   text,
   json,
+  bigint,
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
@@ -29,7 +30,7 @@ export const images = pgTable("images", {
   customId: varchar({ length: 255 }),
   fileHash: varchar({ length: 255 }).notNull(),
   key: varchar({ length: 255 }).notNull(),
-  lastModified: integer("last_modified"),
+  lastModified: bigint("last_modified", { mode: "number" }),
   name: varchar({ length: 255 }).notNull(),
   serverData: json(),
   size: integer(),

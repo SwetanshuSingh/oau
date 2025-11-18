@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+.scrollbar-none {
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE 10+ */
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  /* Chrome, Safari */
+  display: none;
+}
+
 :root {
   --header-height: 3.3rem;
   --color-base-white: 255 255 255;

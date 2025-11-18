@@ -8,7 +8,7 @@ export const oauFileRouter = {
   imageUploader: f({
     image: {
       maxFileSize: "4MB",
-      maxFileCount: 1,
+      maxFileCount: 5,
     },
   })
     .middleware(async ({ req }) => {
