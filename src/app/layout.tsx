@@ -1,19 +1,30 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import localfont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const instrumentSerif = Instrument_Serif({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-instrument",
-});
-
 const bigJohn = localfont({
   src: "../../public/font.otf",
   variable: "--font-big-jhon",
+});
+
+const FuturaBook = localfont({
+  src: [
+    {
+      path: "../../public/fonts/futura-book.ttf",
+      weight: "400",
+      style: "normal",
+    },
+
+    {
+      path: "../../public/fonts/futura-book-italic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+  ],
+  variable: "--font-futura-book",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -29,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${instrumentSerif.variable} ${GeistSans.variable} ${bigJohn.variable}`}
+        className={`${GeistSans.variable} ${bigJohn.variable} ${FuturaBook.variable}`}
       >
         {children}
         <Toaster />
