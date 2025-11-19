@@ -3,17 +3,19 @@
 import { motion } from "motion/react";
 
 export default function Navbar() {
-  const items = ["oau", "home", "initiatives", "work"];
-
   return (
-    <nav className="w-full flex justify-start items-center text-white/80 gap-12">
-      <p className="text-4xl font-bold uppercase cursor-default">OAU</p>
-      <span className="text-3xl font-semibold text-white/80">/</span>
-      <FlipLink href="#">Home</FlipLink>
-      <span className="text-3xl font-semibold">/</span>
-      <FlipLink href="#">Initiatives</FlipLink>
-      <span className="text-3xl font-semibold">/</span>
-      <FlipLink href="#">Work</FlipLink>
+    <nav className="w-full flex justify-start items-center gap-32 text-4xl">
+      <h4 className="font-medium tracking-tight text-white">OAU</h4>
+
+      <span className="flex justify-start items-center gap-5 uppercase">
+        <FlipLink href="/initiatives">Initiatives</FlipLink>
+        <p className="text-white/70">/</p>
+        <FlipLink href="/initiatives">Work</FlipLink>
+        <p className="text-white/70">/</p>
+        <FlipLink href="/initiatives">News</FlipLink>
+        <p className="text-white/70">/</p>
+        <FlipLink href="/initiatives">Contact</FlipLink>
+      </span>
     </nav>
   );
 }
@@ -23,7 +25,7 @@ function FlipLink({ children, href }: { children: string; href: string }) {
     <motion.div
       initial="initial"
       whileHover="hovered"
-      className="relative block overflow-hidden whitespace-nowrap text-4xl font-bold uppercase text-white/80 cursor-pointer"
+      className="relative block overflow-hidden whitespace-nowrap text-white/80 cursor-pointer"
     >
       <motion.div
         variants={{

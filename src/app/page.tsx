@@ -1,5 +1,9 @@
+import Hero from "@/components/hero";
+
 export default function Home() {
   return (
-    <main className="w-full h-screen flex flex-col justify-center items-center font-futura-book"></main>
+    <main className="w-full font-futura-book">
+      <Hero />
+    </main>
   );
 }

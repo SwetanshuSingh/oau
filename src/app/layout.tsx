@@ -16,11 +16,30 @@ const FuturaBook = localfont({
       weight: "400",
       style: "normal",
     },
-
     {
       path: "../../public/fonts/futura-book-italic.ttf",
       weight: "400",
       style: "italic",
+    },
+    {
+      path: "../../public/fonts/futura-book-medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/futura-book-medium-italic.ttf",
+      weight: "500",
+      style: "italic",
+    },
+    // {
+    //   path: "../../public/fonts/futura-book-bold.ttf",
+    //   weight: "700",
+    //   style: "normal",
+    // },
+    {
+      path: "../../public/fonts/futura-book-black.ttf",
+      weight: "900",
+      style: "normal",
     },
   ],
   variable: "--font-futura-book",
