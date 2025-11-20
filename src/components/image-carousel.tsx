@@ -41,22 +41,22 @@ export default function ImageCarousel() {
         "We outline approachable tactics that convert corridors into human-scale rooms, supporting play, commerce, and care.",
       img: "https://images.unsplash.com/photo-1762545352529-1e624dad0548?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDQyfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
     },
-    {
-      id: "item-005",
-      label: "project",
-      title: "Riverfront Regeneration: Resilience Through Landscape",
-      content:
-        "A multi-phase approach that braids flood management with habitat restoration and civic promenades.",
-      img: "https://images.unsplash.com/photo-1762545078318-8443881c2d83?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDQ4fE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
-    },
-    {
-      id: "item-006",
-      label: "news",
-      title: "Award Shortlist: OAU’s Circular Materials Library",
-      content:
-        "Recognized for advancing low-carbon construction through a shared catalog of reusable assemblies and parts.",
-      img: "https://images.unsplash.com/photo-1762600749688-8dfc960d86c5?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDU3fE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
-    },
+    // {
+    //   id: "item-005",
+    //   label: "project",
+    //   title: "Riverfront Regeneration: Resilience Through Landscape",
+    //   content:
+    //     "A multi-phase approach that braids flood management with habitat restoration and civic promenades.",
+    //   img: "https://images.unsplash.com/photo-1762545078318-8443881c2d83?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDQ4fE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
+    // },
+    // {
+    //   id: "item-006",
+    //   label: "news",
+    //   title: "Award Shortlist: OAU’s Circular Materials Library",
+    //   content:
+    //     "Recognized for advancing low-carbon construction through a shared catalog of reusable assemblies and parts.",
+    //   img: "https://images.unsplash.com/photo-1762600749688-8dfc960d86c5?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDU3fE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
+    // },
   ];
 
   return (
