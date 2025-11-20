@@ -1,30 +1,87 @@
-export default function Footer() {
-  return (
-    <footer>
-      <section className="w-full flex bg-[#FAFBFC] border-t border-gray-100 px-6 py-8">
-        <div className="flex flex-col gap-4 w-1/4">
-          <p className="text-4xl font-bold uppercase text-black">OAU</p>
+type FooterLinks = {
+  category: "our work" | "initiatives" | "what's new" | "legal";
+  items: FootLink[];
+};
 
-          <div className="flex flex-col text-gray-600 tracking-tight leading-none gap-1.5">
-            <p>
-              F-16, Shankar Path, Todel Marg, Kanti Chandra Road, Bani Park,
-              Jaipur
-            </p>
-            <p>Rajasthan, 302016</p>
-          </div>
+type FootLink = {
+  label: string;
+  href: string;
+};
+
+export default function Footer() {
+  const footerLinks: FooterLinks[] = [
+    {
+      category: "our work",
+      items: [
+        { label: "Projects", href: "" },
+        { label: "News", href: "" },
+        { label: "Blogs", href: "" },
+      ],
+    },
+    {
+      category: "initiatives",
+      items: [
+        { label: "Paraorbism", href: "" },
+        { label: "OAU Builds", href: "" },
+        { label: "Arch Article", href: "" },
+        { label: "llaxrworld", href: "" },
+      ],
+    },
+    {
+      category: "what's new",
+      items: [
+        { label: "Instagram", href: "" },
+        { label: "Linkedin", href: "" },
+        { label: "Twitter", href: "" },
+      ],
+    },
+    {
+      category: "legal",
+      items: [
+        { label: "Privacy Policy", href: "" },
+        { label: "Terms & Conditions", href: "" },
+      ],
+    },
+  ];
+
+  return (
+    <footer className="w-full p-10 bg-[#1E1919] text-white/80 flex flex-col gap-6">
+      <section className="flex justify-start items-start gap-40">
+        <div className="flex flex-col gap-6">
+          <h4 className="text-4xl font-medium tracking-tight text-white">
+            OAU
+          </h4>
+          <span>
+            <p>F-16, Shankar Path, Toder Mal Marg,</p>
+            <p>Kanti Chandra Marg, Bani Park</p>
+            <p>Jaipur, Rajasthan - 302016</p>
+          </span>
+        </div>
+
+        <div className="flex gap-20">
+          {footerLinks.map((footLink) => (
+            <div key={footLink.category} className="flex flex-col gap-6">
+              <h5 className="text-white text-2xl capitalize">
+                {footLink.category}
+              </h5>
+
+              <span className="flex flex-col gap-3 text-lg">
+                {footLink.items.map((item) => (
+                  <p
+                    key={item.label}
+                    className="hover:text-white transition-all duration-150 cursor-pointer hover:underline underline-offset-[6px] decoration-wavy"
+                  >
+                    {item.label}
+                  </p>
+                ))}
+              </span>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section className="bg-[#FAFBFC] px-6 py-4 flex items-center justify-between">
-        <p className="text-black/70">
-          © 2025 OAU - Objects Architecture Urbansism
-        </p>
-
-        <span className="flex justify-center items-center gap-5 text-black/70">
-          <p>Privacy Policy</p>
-          <p>Terms</p>
-          <p>Code of Conduct</p>
-        </span>
+      <section className="w-full border-t border-white/70 pt-5">
+        <p>© 2025 OAU - Objects Architecture Urbansism</p>
       </section>
     </footer>
   );

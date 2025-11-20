@@ -1,4 +1,5 @@
 import About from "@/components/about";
+import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import ImageCarousel from "@/components/image-carousel";
 
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <About />
       <ImageCarousel />
+      <Footer />
     </main>
   );
 }
