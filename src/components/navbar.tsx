@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
@@ -8,43 +8,24 @@ export default function Navbar() {
       <h4 className="font-medium tracking-tight text-white">OAU</h4>
 
       <span className="flex justify-start items-center gap-5 uppercase">
-        <FlipLink href="/initiatives">Initiatives</FlipLink>
+        <NavLink href="/initiatives">Initiatives</NavLink>
         <p className="text-white/70">/</p>
-        <FlipLink href="/initiatives">Work</FlipLink>
+        <NavLink href="/work">Work</NavLink>
         <p className="text-white/70">/</p>
-        <FlipLink href="/initiatives">News</FlipLink>
+        <NavLink href="/blogs">Blogs</NavLink>
         <p className="text-white/70">/</p>
-        <FlipLink href="/initiatives">Contact</FlipLink>
+        <NavLink href="/news">News</NavLink>
+        <p className="text-white/70">/</p>
+        <NavLink href="/contact">Contact</NavLink>
       </span>
     </nav>
   );
 }
 
-function FlipLink({ children, href }: { children: string; href: string }) {
+function NavLink({ children, href }: { children: string; href: string }) {
   return (
-    <motion.div
-      initial="initial"
-      whileHover="hovered"
-      className="relative block overflow-hidden whitespace-nowrap text-white/80 cursor-pointer"
-    >
-      <motion.div
-        variants={{
-          initial: { y: 0 },
-          hovered: { y: "-100%" },
-        }}
-      >
-        {children}
-      </motion.div>
-
-      <motion.div
-        className="absolute inset-0 text-white"
-        variants={{
-          initial: { y: "100%" },
-          hovered: { y: 0 },
-        }}
-      >
-        {children}
-      </motion.div>
-    </motion.div>
+    <Link href={href} className="text-white/80 cursor-pointer hover:text-white">
+      {children}
+    </Link>
   );
 }
