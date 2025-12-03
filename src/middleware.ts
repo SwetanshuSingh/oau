@@ -4,7 +4,7 @@ import * as jose from "jose";
 const COOKIE_NAME = "auth_token";
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
 
   const protectedRoutes = ["/dashboard"];
@@ -29,12 +29,20 @@ export function middleware(req: NextRequest) {
   }
 
   try {
-    jose.jwtVerify(token, JWT_SECRET);
-
+    await jose.jwtVerify(token, JWT_SECRET);
     return NextResponse.next();
   } catch (error) {
     url.pathname = "/login";
-    return NextResponse.redirect(url);
+    const response = NextResponse.redirect(url);
+    response.cookies.set(COOKIE_NAME, "", {
+      path: "/",
+      maxAge: 0,
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
+
+    return response;
   }
 }
 

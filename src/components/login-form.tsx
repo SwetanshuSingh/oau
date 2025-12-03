@@ -66,7 +66,7 @@ export function LoginForm({
       setIsLoading(false);
       return;
     }
-    router.push("/dashboard");
+    router.push("/dashboard/work");
     setIsLoading(false);
   }
 
