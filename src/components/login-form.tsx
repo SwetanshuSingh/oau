@@ -15,12 +15,12 @@ import Loader from "./icons/loader-icon";
 import { FormEvent, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -55,17 +55,25 @@ export function LoginForm({
       setIsLoading(false);
       return;
     }
-    const response = await login(email, password);
-    if (response.status !== "success") {
-      toast({
-        title: "An error occurred!",
-        description: response.message,
-        variant: "destructive",
-      });
-      setIsLoading(false);
-      return;
-    }
-    router.push("/dashboard/work");
+
+    await authClient.signIn.email({
+      email,
+      password,
+      rememberMe: true,
+      callbackURL: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard/work`,
+
+      fetchOptions: {
+        onError: (ctx) => {
+          toast({
+            title: "An error occurred!",
+            description: ctx.error.message,
+            variant: "destructive",
+          });
+          setIsLoading(false);
+        },
+      },
+    });
+
     setIsLoading(false);
   }
 
@@ -120,10 +128,3 @@ export function LoginForm({
     </div>
   );
 }
-
-`
-bg-primary=#17191A
-bg-secondary=#191B1D
-border=#313234
-
-`;
