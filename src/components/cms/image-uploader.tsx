@@ -2,6 +2,7 @@
 
 import { Project, UploadedImage } from "@/types";
 import { Plus, Trash2 } from "lucide-react";
+import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type ImageUploadProps = {
@@ -134,7 +135,9 @@ export default function ImageUploader({
                 <Trash2 size={24} />
               </button>
             </div>
-            <img
+            <Image
+            width={1000}
+            height={1000}
               className="w-24 h-24 rounded-md"
               src={image.previewUrl}
               alt="uploaded-img"

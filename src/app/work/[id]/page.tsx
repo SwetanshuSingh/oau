@@ -1,4 +1,5 @@
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Project({ params }: { params: { id: string } }) {
@@ -38,13 +39,17 @@ export default function Project({ params }: { params: { id: string } }) {
 
       <div className="flex flex-col gap-5">
         <div className="w-full flex gap-5">
-          <img
+          <Image
+            width={1000}
+            height={1000}
             className="h-[500px] w-2/4 object-cover"
             src="https://images.unsplash.com/photo-1762115839572-b858cc6efb61?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw5fHx8ZW58MHx8fHx8"
             alt=""
           />
 
-          <img
+          <Image
+            width={1000}
+            height={1000}
             className="h-[500px] w-2/4 object-cover"
             src="https://images.unsplash.com/photo-1761839257469-96c78a7c2dd3?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""
@@ -52,7 +57,9 @@ export default function Project({ params }: { params: { id: string } }) {
         </div>
 
         <div className="w-full">
-          <img
+          <Image
+            width={1000}
+            height={1000}
             className="w-full h-[800px] object-cover"
             src="https://images.unsplash.com/photo-1763351866319-5851eb0c9018?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""
@@ -60,13 +67,17 @@ export default function Project({ params }: { params: { id: string } }) {
         </div>
 
         <div className="w-full flex gap-5">
-          <img
+          <Image
+            width={1000}
+            height={1000}
             className="h-[500px] w-2/4 object-cover"
             src="https://images.unsplash.com/photo-1762115839572-b858cc6efb61?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw5fHx8ZW58MHx8fHx8"
             alt=""
           />
 
-          <img
+          <Image
+            width={1000}
+            height={1000}
             className="h-[500px] w-2/4 object-cover"
             src="https://images.unsplash.com/photo-1761839257469-96c78a7c2dd3?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""

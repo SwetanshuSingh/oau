@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type Item = {
   id: string;
   label: "project" | "blog" | "news";
@@ -66,7 +68,9 @@ export default function ImageCarousel() {
           key={item.id}
           className="max-w-1/4 w-1/4 flex flex-col gap-8 cursor-pointer hover:scale-105 transition-transform duration-150 select-none"
         >
-          <img
+          <Image
+            width={1000}
+            height={1000}
             className="w-full h-[200px] object-cover object-center"
             src={item.img}
             alt="dummy-image"

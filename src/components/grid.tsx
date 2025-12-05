@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Grid() {
   return (
     <section className="w-full flex justify-between gap-10 px-6">
@@ -11,7 +13,9 @@ export default function Grid() {
           all species.{" "}
         </p>
 
-        <img
+        <Image
+        width={1000}
+        height={1000}
           className="w-full h-[400px] object-cover"
           src="https://plus.unsplash.com/premium_photo-1744079117031-002ea792bfc9?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2071"
           alt="image"
