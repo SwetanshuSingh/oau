@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { login } from "@/actions/login";
 import Loader from "./icons/loader-icon";
 import { FormEvent, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
