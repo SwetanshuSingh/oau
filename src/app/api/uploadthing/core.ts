@@ -1,4 +1,5 @@
-import { getAuthTokenFromCookie, verifyJwt } from "@/actions/login";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 
@@ -12,13 +13,11 @@ export const oauFileRouter = {
     },
   })
     .middleware(async ({ req }) => {
-      const token = await getAuthTokenFromCookie();
+      const session = await auth.api.getSession({
+        headers: headers(),
+      });
 
-      if (!token) {
-        throw new UploadThingError("Unauthorized Access");
-      }
-
-      const user = await verifyJwt(token);
+      const user = session?.user;
 
       if (!user) throw new UploadThingError("Unauthorized Access");
 

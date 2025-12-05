@@ -24,22 +24,42 @@ export default function NewProjectDialog() {
     description: "",
     images: [],
   });
+
   const { startUpload } = useUploadThing("imageUploader", {
     onUploadError: (err) => {
-      // handle error state here.
-      // revoke all the image urls and clear state
+      toast({
+        title: "An Error Occurred!",
+        variant: "destructive",
+      });
+      project.images.forEach((image) => URL.revokeObjectURL(image.previewUrl));
+      setProject({ title: "", description: "", images: [] });
     },
 
     onClientUploadComplete: async (uploadedImages) => {
-      // will get an array of uploaded images
-
       const projectData = {
         title: project.title,
         description: project.description,
         images: uploadedImages,
       };
 
-      await createProject(projectData);
+      const response = await createProject(projectData);
+
+      if (response.status !== "success") {
+        toast({
+          title: "An Error Occurred!",
+          description: response.message,
+          variant: "destructive",
+        });
+        project.images.forEach((image) =>
+          URL.revokeObjectURL(image.previewUrl)
+        );
+        setProject({ title: "", description: "", images: [] });
+        return;
+      }
+
+      project.images.forEach((image) => URL.revokeObjectURL(image.previewUrl));
+      setProject({ title: "", description: "", images: [] });
+      return;
     },
   });
 

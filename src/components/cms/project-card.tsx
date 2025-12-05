@@ -4,10 +4,19 @@ import { Input } from "@/components/ui/input";
 import { Check, Edit2, EditIcon, LucideEdit } from "lucide-react";
 import { useState } from "react";
 import ImageGallery from "./gallery";
+import { projects, images } from "@/db/schema";
+import { InferSelectModel } from "drizzle-orm";
+import { Textarea } from "../ui/textarea";
 
 type Content = {
   content: string;
   isEditing: boolean;
+};
+
+type ProjectCardProps = {
+  project: InferSelectModel<typeof projects> & {
+    images: InferSelectModel<typeof images>[];
+  };
 };
 
 function EditButton({ editContent }: { editContent: () => void }) {
@@ -32,13 +41,13 @@ function SaveButton({ editContent }: { editContent: () => void }) {
   );
 }
 
-export default function ProjectCard() {
+export default function ProjectCard({ project }: ProjectCardProps) {
   const [title, setTitle] = useState<Content>({
-    content: "",
+    content: project.title,
     isEditing: false,
   });
   const [description, setDescription] = useState<Content>({
-    content: "",
+    content: project.description,
     isEditing: false,
   });
 
@@ -72,9 +81,6 @@ export default function ProjectCard() {
 
   return (
     <div className="flex flex-col gap-1">
-      <p className="text-lg tracking-tight text-neutral-300 font-medium">
-        Project Name
-      </p>
       <section className="w-3/6 p-4 flex flex-col gap-8 rounded-md border border-neutral-800">
         <div className="flex flex-col gap-2.5">
           <span className="w-full flex items-baseline justify-between">
@@ -87,7 +93,8 @@ export default function ProjectCard() {
           </span>
           <div className="w-full flex gap-2">
             <Input
-              className="bg-white/10 text-neutral-300 border-none outline-none "
+              className="bg-white/10 text-neutral-300 border-none outline-none"
+              value={title.content}
               type="text"
               placeholder="Enter project title here"
               disabled={!title.isEditing}
@@ -104,15 +111,15 @@ export default function ProjectCard() {
               <EditButton editContent={editDescription} />
             )}
           </span>
-          <Input
-            className="bg-white/10 text-neutral-300 outline-none border-none"
-            type="text"
+          <Textarea
+            className="h-40 bg-white/10 text-neutral-300 outline-none border-none resize-none"
+            value={description.content}
             placeholder="Enter project description here"
             disabled={!description.isEditing}
           />
         </div>
 
-        <ImageGallery />
+        <ImageGallery images={project.images} />
       </section>
     </div>
   );

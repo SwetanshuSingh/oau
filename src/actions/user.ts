@@ -2,6 +2,8 @@
 
 import { db } from "@/db";
 import { images, projects } from "@/db/schema";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 import { ClientUploadedFileData } from "uploadthing/types";
 
@@ -11,45 +13,40 @@ type Project = {
   images: ClientUploadedFileData<{ uploadedBy: string }>[];
 };
 
-// export async function createProject(
-//   project: Project
-// ): Promise<{ status: "error" | "success"; message: string }> {
-//   const token = await getAuthTokenFromCookie();
+export async function createProject(
+  project: Project
+): Promise<{ status: "error" | "success"; message: string }> {
+  const session = await auth.api.getSession({
+    headers: headers(),
+  });
 
-//   if (!token) {
-//     console.log("No token found");
-//     return { status: "error", message: "Authentication Error" };
-//   }
+  if (!session || !session.user) {
+    return { status: "error", message: "Unauthorized Access" };
+  }
 
-//   const user = await verifyJwt(token);
+  try {
+    await db.transaction(async (tx) => {
+      const newProject = await tx
+        .insert(projects)
+        .values({
+          title: project.title,
+          description: project.description,
+        })
+        .returning();
 
-//   if (!user) {
-//     return { status: "error", message: "Authentication Error" };
-//   }
+      const imagesWithProjectId = project.images.map((item) => {
+        return { ...item, projectId: newProject[0].id };
+      });
 
-//   try {
-//     await db.transaction(async (tx) => {
-//       const newProject = await tx
-//         .insert(projects)
-//         .values({
-//           title: project.title,
-//           description: project.description,
-//         })
-//         .returning();
+      await tx.insert(images).values(imagesWithProjectId);
+    });
 
-//       const imagesWithProjectId = project.images.map((item) => {
-//         return { ...item, projectId: newProject[0].id };
-//       });
-
-//       await tx.insert(images).values(imagesWithProjectId);
-//     });
-
-//     return { status: "success", message: "Project Created Successfully!" };
-//   } catch (error) {
-//     console.log("Error while creating a new project", error);
-//     return {
-//       status: "error",
-//       message: "An error occurred while creating a project",
-//     };
-//   }
-// }
+    return { status: "success", message: "Project Created Successfully!" };
+  } catch (error) {
+    console.log("Error while creating a new project", error);
+    return {
+      status: "error",
+      message: "An error occurred while creating a project",
+    };
+  }
+}
