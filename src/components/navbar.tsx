@@ -14,7 +14,7 @@ type NavLinkProps = {
 
 export default function Navbar({ variant }: NavbarProps) {
   return (
-    <nav className="w-full flex justify-start items-center gap-32 text-4xl">
+    <nav className="w-full flex justify-start items-center md:text-3xl md:gap-20 xl:text-4xl xl:gap-32">
       <h4
         className={`font-medium tracking-tight ${
           variant === "dark" ? "text-white" : "text-black"
