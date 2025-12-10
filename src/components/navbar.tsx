@@ -1,6 +1,8 @@
 "use client";
 
+import { Menu } from "lucide-react";
 import Link from "next/link";
+import MobileSidebar from "./mobile-sidebar";
 
 type NavbarProps = {
   variant: "dark" | "light";
@@ -14,7 +16,7 @@ type NavLinkProps = {
 
 export default function Navbar({ variant }: NavbarProps) {
   return (
-    <nav className="w-full flex justify-start items-center md:text-3xl md:gap-20 xl:text-4xl xl:gap-32">
+    <nav className="w-full flex justify-between lg:justify-start items-center text-xl lg:text-3xl lg:gap-20 xl:text-4xl xl:gap-32">
       <h4
         className={`font-medium tracking-tight ${
           variant === "dark" ? "text-white" : "text-black"
@@ -24,7 +26,7 @@ export default function Navbar({ variant }: NavbarProps) {
       </h4>
 
       <span
-        className={`flex justify-start items-center gap-5 uppercase ${
+        className={`hidden lg:flex justify-start items-center gap-5 uppercase ${
           variant === "dark" ? "text-white/70" : "text-neutral-400"
         }`}
       >
@@ -38,6 +40,8 @@ export default function Navbar({ variant }: NavbarProps) {
         <p>/</p>
         <NavLink label="Contact" href="/contact" variant={variant} />
       </span>
+
+      <MobileSidebar />
     </nav>
   );
 }
