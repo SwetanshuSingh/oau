@@ -43,14 +43,14 @@ export default function ImageCarousel() {
         "We outline approachable tactics that convert corridors into human-scale rooms, supporting play, commerce, and care.",
       img: "https://images.unsplash.com/photo-1762545352529-1e624dad0548?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDQyfE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
     },
-    // {
-    //   id: "item-005",
-    //   label: "project",
-    //   title: "Riverfront Regeneration: Resilience Through Landscape",
-    //   content:
-    //     "A multi-phase approach that braids flood management with habitat restoration and civic promenades.",
-    //   img: "https://images.unsplash.com/photo-1762545078318-8443881c2d83?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDQ4fE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
-    // },
+    {
+      id: "item-005",
+      label: "project",
+      title: "Riverfront Regeneration: Resilience Through Landscape",
+      content:
+        "A multi-phase approach that braids flood management with habitat restoration and civic promenades.",
+      img: "https://images.unsplash.com/photo-1762545078318-8443881c2d83?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDQ4fE04alZiTGJUUndzfHxlbnwwfHx8fHw%3D",
+    },
     // {
     //   id: "item-006",
     //   label: "news",
@@ -62,11 +62,11 @@ export default function ImageCarousel() {
   ];
 
   return (
-    <section className="w-full flex gap-6 p-10">
+    <section className="w-full flex gap-8 p-14">
       {items.map((item) => (
         <div
           key={item.id}
-          className="max-w-1/4 w-1/4 flex flex-col gap-8 cursor-pointer hover:scale-105 transition-transform duration-150 select-none"
+          className="w-1/5 flex flex-col gap-8 cursor-pointer hover:scale-105 transition-transform duration-150 select-none"
         >
           <Image
             width={1000}

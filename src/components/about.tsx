@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <section className="w-full p-10">
+    <section className="w-full p-14">
       <div className="w-full flex gap-10">
         {/* Left Section */}
         <div className="w-3/6 flex flex-col gap-6">
