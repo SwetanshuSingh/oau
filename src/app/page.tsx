@@ -8,8 +8,8 @@ export default function Home() {
     <main className="w-full flex flex-col font-futura-book">
       <Hero />
       <About />
-      <ImageCarousel />
-      <Footer />
+      {/* <ImageCarousel />
+      <Footer /> */}
     </main>
   );
 }

@@ -7,12 +7,12 @@ export default function Hero() {
         <Navbar variant="dark" />
 
         <div className="flex flex-col gap-6">
-          <span className="text-6xl text-white font-medium italic">
+          <span className="text-3xl md:text-6xl text-white font-medium italic">
             <h2>Transforming</h2>
             <h2>Ideas Architecture</h2>
           </span>
 
-          <p className="max-w-96 text-xl italic text-neutral-300">
+          <p className="max-w-96 text-lg md:text-xl italic text-neutral-300">
             we specialize in turning creative concepts into immersive
             experiences, blending innovation with precision for a digital
           </p>

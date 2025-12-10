@@ -1,31 +1,32 @@
 export default function About() {
   return (
-    <section className="w-full p-14">
+    <section className="w-full p-5 md:p-14">
       <div className="w-full flex gap-10">
         {/* Left Section */}
         <div className="w-3/6 flex flex-col gap-6">
-          <h3 className="text-neutral-800 font-medium text-3xl text-justify">
+          <h3 className="text-neutral-800 font-medium text-lg md:text-3xl text-justify">
             Office for Objects Architecture Urbanism (OAU) is an international
             architectural, urban planning/design practice established to
             initiate works that mediate between various scales from objects,
             architecture, & urban planning & design.
           </h3>
 
-          <button className="w-fit py-2 px-5 text-[#1E1919] border border-[#1E1919] rounded-3xl text-xl hover:bg-[#1E1919] hover:text-white transition-colors duration-150">
+          <button className="w-fit py-2 px-5 text-[#1E1919] border border-[#1E1919] rounded-3xl text-lg md:text-xl hover:bg-[#1E1919] hover:text-white transition-colors duration-150">
             <p>Our Services</p>
           </button>
         </div>
 
         <div className="w-3/6 flex">
-          <div className="flex flex-col gap-4">
-            <p className="text-neutral-600 text-lg text-justify tracking-tight">
+          <div className="flex flex-col gap-4 text-neutral-600 text-sm md:text-lg text-justify tracking-tight">
+            <p>
               Throughout history, architecture & build mass has always been at
               the forefront of guiding civilizations, enriching experiences with
               novel ideas of utopia. It is imperative that we understand
               agencies and develop modalities that can foster a sustainable
               build environment for all species.
             </p>
-            <p className="text-neutral-600 text-lg text-justify tracking-tight">
+
+            <p>
               The motivation for starting the office comes from the realization
               of finding the true potential of our given spaces and their
               ability to transcend the faculties of our sensorial perception.
@@ -36,7 +37,7 @@ export default function About() {
               environment through context research and design strategy.
             </p>
 
-            <p className="text-neutral-600 text-lg text-justify tracking-tight">
+            <p>
               Our architecture is an art of optimism, demanding of us a
               forward-looking attitude and the nerve to stand out of sync with
               present norms. We believe the significant work of reconciling past
