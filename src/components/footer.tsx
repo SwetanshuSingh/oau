@@ -45,7 +45,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="w-full p-14 bg-[#1E1919] text-white/80 flex flex-col gap-6">
+    <footer className="w-full p-5 md:p-14 bg-[#1E1919] text-white/80 flex flex-col gap-8">
       <section className="flex justify-start items-start gap-40">
         <div className="flex flex-col gap-6">
           <h4 className="text-4xl font-medium tracking-tight text-white">
@@ -58,7 +58,7 @@ export default function Footer() {
           </span>
         </div>
 
-        <div className="flex gap-20">
+        <div className="hidden xl:flex gap-20">
           {footerLinks.map((footLink) => (
             <div key={footLink.category} className="flex flex-col gap-6">
               <h5 className="text-white text-2xl capitalize">

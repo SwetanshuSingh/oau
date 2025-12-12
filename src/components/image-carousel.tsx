@@ -62,7 +62,7 @@ export default function ImageCarousel() {
   ];
 
   return (
-    <section className="w-full flex gap-8 p-5 md:p-14 overflow-x-scroll">
+    <section className="w-full flex gap-8 p-5 md:p-14 overflow-x-scroll scrollbar-none">
       {items.map((item) => (
         <div
           key={item.id}
