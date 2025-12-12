@@ -3,7 +3,7 @@ import Navbar from "./navbar";
 export default function Hero() {
   return (
     <section className="w-full h-screen bg-[url(../../public/images/hero.png)] bg-cover bg-center">
-      <div className="w-full h-full bg-black/50 flex flex-col justify-between p-5 md:p-10">
+      <div className="w-full h-full bg-black/50 flex flex-col justify-between p-5 md:p-14">
         <Navbar variant="dark" />
 
         <div className="flex flex-col gap-6">
