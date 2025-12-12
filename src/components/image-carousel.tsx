@@ -62,11 +62,11 @@ export default function ImageCarousel() {
   ];
 
   return (
-    <section className="w-full flex gap-8 p-14">
+    <section className="w-full flex gap-8 p-5 md:p-14 overflow-x-scroll">
       {items.map((item) => (
         <div
           key={item.id}
-          className="w-1/5 flex flex-col gap-8 cursor-pointer hover:scale-105 transition-transform duration-150 select-none"
+          className="min-w-[300px] w-1/5 flex flex-col gap-8 cursor-pointer hover:scale-105 transition-transform duration-150 select-none"
         >
           <Image
             width={1000}
