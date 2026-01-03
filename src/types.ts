@@ -15,6 +15,11 @@
 export type Project = {
   title: string;
   description: string;
+  type: string;
+  location: string;
+  status: string;
+  year: string;
+  squareFeet: string;
   images: UploadedImage[];
 };
 

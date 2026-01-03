@@ -31,7 +31,7 @@ export default async function WorkDashboard() {
           </span>
         </h3>
 
-        <div>
+        <div className="flex flex-col gap-5">
           {existingProjects &&
             existingProjects.map((project) => (
               <ProjectCard project={project} key={project.id} />

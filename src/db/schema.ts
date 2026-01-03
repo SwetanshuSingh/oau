@@ -88,6 +88,11 @@ export const projects = pgTable("projects", {
   id: uuid("id").defaultRandom().unique().primaryKey(),
   title: text().notNull(),
   description: text().notNull(),
+  type: text().notNull(),
+  location: text().notNull(),
+  status: text().notNull(),
+  year: text().notNull(),
+  squareFeet: text().notNull(),
 });
 
 export const images = pgTable("images", {

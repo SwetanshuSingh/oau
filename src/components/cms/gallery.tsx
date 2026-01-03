@@ -25,9 +25,11 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
               alt="dummy"
             />
           ))}
-        <div className="w-24 h-24 flex justify-center items-center border border-neutral-800 text-neutral-600 hover:bg-white/10 hover:text-neutral-300 rounded cursor-pointer transition-colors duration-150">
-          <Plus />
-        </div>
+        {images.length < 5 && (
+          <div className="w-24 h-24 flex justify-center items-center border border-neutral-800 text-neutral-600 hover:bg-white/10 hover:text-neutral-300 rounded cursor-pointer transition-colors duration-150">
+            <Plus />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -10,6 +10,11 @@ import { ClientUploadedFileData } from "uploadthing/types";
 type Project = {
   title: string;
   description: string;
+  type: string;
+  location: string;
+  status: string;
+  year: string;
+  squareFeet: string;
   images: ClientUploadedFileData<{ uploadedBy: string }>[];
 };
 
@@ -31,6 +36,11 @@ export async function createProject(
         .values({
           title: project.title,
           description: project.description,
+          type: project.type,
+          location: project.location,
+          status: project.status,
+          year: project.year,
+          squareFeet: project.squareFeet,
         })
         .returning();
 
