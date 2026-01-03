@@ -7,15 +7,7 @@ import ImageGallery from "./gallery";
 import { projects, images } from "@/db/schema";
 import { InferSelectModel, is } from "drizzle-orm";
 import { Textarea } from "../ui/textarea";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "../ui/button";
+import DeleteProjectDialog from "./delete-project-dialog";
 
 type Content = {
   content: string;
@@ -60,34 +52,8 @@ function SaveButton({
       onClick={() => setIsEditing(false)}
       className="w-fit bg-white/10 p-1 rounded-md text-neutral-600 hover:text-green-600 hover:bg-green-300/20 cursor-pointer transition-colors duration-150"
     >
-      <Check size={16} className="" />
+      <Check size={20} className="" />
     </button>
-  );
-}
-
-function DeleteButton() {
-  return (
-    <Dialog>
-      <DialogTrigger>
-        <button className="w-fit bg-white/10 p-1 rounded-md text-neutral-600 hover:text-red-700 hover:bg-rose-900/50 cursor-pointer transition-colors duration-150">
-          <Trash2 size={20} className="" />
-        </button>
-      </DialogTrigger>
-      <DialogContent className="font-sans bg-black text-white border-neutral-800">
-        <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            project card and remove your data from our servers.
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="flex justify-end items-center gap-2">
-          <Button variant="default">Cancel</Button>
-          <Button variant="destructive">Delete</Button>
-        </div>
-      </DialogContent>
-    </Dialog>
   );
 }
 
@@ -124,7 +90,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         ) : (
           <EditButton setIsEditing={setIsEditing} />
         )}
-        <DeleteButton />
+        <DeleteProjectDialog projectId={project.id} />
       </div>
       <div className="flex flex-col gap-1">
         <section className="w-3/6 p-4 flex flex-col gap-8 rounded-md border border-neutral-800">

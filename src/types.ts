@@ -29,3 +29,8 @@ export type UploadedImage = {
   previewUrl: string;
   error?: string;
 };
+
+export type ServerActionResponse = {
+  status: "success" | "error";
+  message: string;
+};

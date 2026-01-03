@@ -3,6 +3,9 @@
 import { db } from "@/db";
 import { images, projects } from "@/db/schema";
 import { auth } from "@/lib/auth";
+import { ServerActionResponse } from "@/types";
+import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
 import { ClientUploadedFileData } from "uploadthing/types";
@@ -20,7 +23,7 @@ type Project = {
 
 export async function createProject(
   project: Project
-): Promise<{ status: "error" | "success"; message: string }> {
+): Promise<ServerActionResponse> {
   const session = await auth.api.getSession({
     headers: headers(),
   });
@@ -59,4 +62,25 @@ export async function createProject(
       message: "An error occurred while creating a project",
     };
   }
+}
+
+export async function deleteProject(
+  projectId: string
+): Promise<ServerActionResponse> {
+  const session = await auth.api.getSession({
+    headers: headers(),
+  });
+
+  if (!session || !session.user) {
+    return { status: "error", message: "Unauthorized Access" };
+  }
+
+  try {
+    await db.delete(projects).where(eq(projects.id, projectId));
+  } catch (error) {
+    return { status: "error", message: "An error occurred" };
+  }
+
+  revalidatePath("/dashboard/work");
+  return { status: "success", message: "Project deleted successfully" };
 }
