@@ -8,7 +8,7 @@ const f = createUploadthing();
 export const oauFileRouter = {
   imageUploader: f({
     image: {
-      maxFileSize: "4MB",
+      maxFileSize: "32MB",
       maxFileCount: 5,
     },
   })

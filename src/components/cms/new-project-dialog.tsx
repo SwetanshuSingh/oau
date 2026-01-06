@@ -16,9 +16,11 @@ import { Project } from "@/types";
 import { useToast } from "@/hooks/use-toast";
 import ImageUploader from "./image-uploader";
 import { useUploadThing } from "@/lib/uploadthing";
+import { Loader2 } from "lucide-react";
 
 export default function NewProjectDialog() {
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const [project, setProject] = useState<Project>({
     title: "",
     description: "",
@@ -37,6 +39,7 @@ export default function NewProjectDialog() {
         variant: "destructive",
       });
       project.images.forEach((image) => URL.revokeObjectURL(image.previewUrl));
+      setIsLoading(false);
       setProject({
         title: "",
         description: "",
@@ -72,6 +75,7 @@ export default function NewProjectDialog() {
         project.images.forEach((image) =>
           URL.revokeObjectURL(image.previewUrl)
         );
+        setIsLoading(false);
         setProject({
           title: "",
           description: "",
@@ -86,6 +90,7 @@ export default function NewProjectDialog() {
       }
 
       project.images.forEach((image) => URL.revokeObjectURL(image.previewUrl));
+      setIsLoading(false);
       setProject({
         title: "",
         description: "",
@@ -137,6 +142,7 @@ export default function NewProjectDialog() {
     }
 
     const files = project.images.map((image) => image.file);
+    setIsLoading(true);
     startUpload(files);
   };
 
@@ -270,8 +276,16 @@ export default function NewProjectDialog() {
               <ImageUploader images={project.images} setProject={setProject} />
             </div>
 
-            <Button onClick={createNewProject} variant="secondary">
-              <p>Create Project</p>
+            <Button
+              disabled={isLoading}
+              onClick={createNewProject}
+              variant="secondary"
+            >
+              {isLoading ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <p>Create Project</p>
+              )}
             </Button>
           </div>
         </DialogHeader>
