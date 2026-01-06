@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { images, projects } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { ServerActionResponse } from "@/types";
-import { eq } from "drizzle-orm";
+import { eq, InferSelectModel } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
@@ -20,6 +20,19 @@ type Project = {
   squareFeet: string;
   images: ClientUploadedFileData<{ uploadedBy: string }>[];
 };
+
+type ProjectChanges = Partial<
+  Pick<
+    InferSelectModel<typeof projects>,
+    | "title"
+    | "description"
+    | "type"
+    | "location"
+    | "status"
+    | "year"
+    | "squareFeet"
+  >
+>;
 
 export async function createProject(
   project: Project
@@ -83,4 +96,29 @@ export async function deleteProject(
 
   revalidatePath("/dashboard/work");
   return { status: "success", message: "Project deleted successfully" };
+}
+
+export async function updateProject(
+  projectId: string,
+  changes: ProjectChanges
+): Promise<ServerActionResponse> {
+  const session = await auth.api.getSession({
+    headers: headers(),
+  });
+
+  if (!session || !session.user) {
+    return { status: "error", message: "Unauthorized Access" };
+  }
+
+  try {
+    await db.update(projects).set(changes).where(eq(projects.id, projectId));
+  } catch (error) {
+    return {
+      status: "error",
+      message: "An error occurred while updating the project",
+    };
+  }
+
+  revalidatePath("/dashboard/work")
+  return { status: "success", message: "Successfully updated project" };
 }
