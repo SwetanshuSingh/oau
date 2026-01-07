@@ -67,6 +67,7 @@ export async function createProject(
       await tx.insert(images).values(imagesWithProjectId);
     });
 
+    revalidatePath("/dashboard/work")
     return { status: "success", message: "Project Created Successfully!" };
   } catch (error) {
     console.log("Error while creating a new project", error);

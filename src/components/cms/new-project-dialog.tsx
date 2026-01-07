@@ -21,6 +21,7 @@ import { Loader2 } from "lucide-react";
 export default function NewProjectDialog() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const [project, setProject] = useState<Project>({
     title: "",
     description: "",
@@ -101,6 +102,7 @@ export default function NewProjectDialog() {
         squareFeet: "",
         images: [],
       });
+      setOpen(false);
       return;
     },
   });
@@ -147,7 +149,7 @@ export default function NewProjectDialog() {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="w-3/6 border p-2 border-neutral-800 text-neutral-600 hover:bg-white/10 hover:text-neutral-300 transition-colors duration-150 rounded-md">
         <p>New Project</p>
       </DialogTrigger>
