@@ -38,49 +38,59 @@ export default async function Project({ params }: { params: { id: string } }) {
 
       <div className="flex flex-col gap-5">
         <div className="w-full flex gap-5">
-          <Image
-            width={1000}
-            height={1000}
-            className="h-[500px] w-2/4 object-cover"
-            src={project.images[0].ufsUrl}
-            alt=""
-          />
+          {project.images[0]?.ufsUrl && (
+            <Image
+              width={1000}
+              height={1000}
+              className="h-[500px] w-2/4 object-cover"
+              src={project.images[0].ufsUrl}
+              alt={project.images[0].name || project.title}
+            />
+          )}
 
-          <Image
-            width={1000}
-            height={1000}
-            className="h-[500px] w-2/4 object-cover"
-            src={project.images[1].ufsUrl}
-            alt=""
-          />
+          {project.images[1]?.ufsUrl && (
+            <Image
+              width={1000}
+              height={1000}
+              className="h-[500px] w-2/4 object-cover"
+              src={project.images[1].ufsUrl}
+              alt={project.images[1].name || project.title}
+            />
+          )}
         </div>
 
-        <div className="w-full">
-          <Image
-            width={1000}
-            height={1000}
-            className="w-full h-[800px] object-cover"
-            src={project.images[2].ufsUrl}
-            alt=""
-          />
-        </div>
+        {project.images[2]?.ufsUrl && (
+          <div className="w-full">
+            <Image
+              width={1000}
+              height={1000}
+              className="w-full h-[800px] object-cover"
+              src={project.images[2].ufsUrl}
+              alt={project.images[2].name || project.title}
+            />
+          </div>
+        )}
 
         <div className="w-full flex gap-5">
-          <Image
-            width={1000}
-            height={1000}
-            className="h-[500px] w-2/4 object-cover"
-            src={project.images[3].ufsUrl}
-            alt=""
-          />
+          {project.images[3]?.ufsUrl && (
+            <Image
+              width={1000}
+              height={1000}
+              className="h-[500px] w-2/4 object-cover"
+              src={project.images[3].ufsUrl}
+              alt={project.images[3].name || project.title}
+            />
+          )}
 
-          {project.images[4]?.ufsUrl && <Image
-            width={1000}
-            height={1000}
-            className="h-[500px] w-2/4 object-cover"
-            src={project.images[4].ufsUrl}
-            alt=""
-          />}
+          {project.images[4]?.ufsUrl && (
+            <Image
+              width={1000}
+              height={1000}
+              className="h-[500px] w-2/4 object-cover"
+              src={project.images[4].ufsUrl}
+              alt={project.images[4].name || project.title}
+            />
+          )}
         </div>
       </div>
     </main>
