@@ -51,10 +51,17 @@ export default function Footer() {
           <h4 className="text-4xl font-medium tracking-tight text-white">
             OAU
           </h4>
+
           <span>
             <p>F-16, Shankar Path, Toder Mal Marg,</p>
             <p>Kanti Chandra Marg, Bani Park</p>
-            <p>Jaipur, Rajasthan - 302016</p>
+            <p>Jaipur, Rajasthan - 302016 - (Studio)</p>
+          </span>
+
+          <span>
+            <p>503, 5th Floor,</p>
+            <p>Corporate Park, Gopalbari</p>
+            <p>Jaipur, Rajasthan - 302001 - (HQ)</p>
           </span>
         </div>
 
